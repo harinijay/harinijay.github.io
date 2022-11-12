@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Roll a dice game</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Merriweather+Sans:wght@500&family=Orbitron:wght@600;700&family=Press+Start+2P&family=Special+Elite&display=swap');
+            button{
+                width: 150px;
+                background-color: #FF869E;
+                color: #FFE7BF;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: 10px solid #FFE7BF;
+                border-radius: 50px;
+                cursor: pointer;
+                font-size: 30px;
+                font-family: 'Special Elite', cursive;
+            }
+
+            button:hover{
+                background-color: #A10035;
+            }
+            
+
+            body{
+                text-align: center;
+                background-image:linear-gradient( rgba(7, 7, 7, 0.498), rgba(8, 8, 8, 0.822)), url('img6.webp');
+                background-blend-mode: darken;
+            }
+
+            .output{
+                width: 20%;
+                padding: 12px 10px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 10px solid #FFE7BF;
+                border-radius: 50px;
+                box-sizing: border-box;
+                background-color: #A10035;
+                font-size: 30px;
+                color: #FFE7BF;
+                font-family: 'Special Elite', cursive;
+            }
+
+            .player {
+                display: inline-block;
+                text-align: center;
+                padding: 20px 200px;
+             }
+
+            .score{
+                width: 80%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 10px solid #FF869E;
+                border-radius: 50px;
+                box-sizing: border-box;
+                background-color: #EEEBDD;
+                font-size: 16px;
+                color: #A10035;
+                font-family: 'Special Elite', cursive;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="dices">
+            <img id="dice1" src="dice_1.png" width="150px"> 
+            <img id="dice2" src="dice_1.png" width="150px">
+        </div>
+        <button id="roll" onclick="roll()" type="button">ROLL</button><br>
+        <div class="player">
+            <img src="img4.png" width="90px" height="auto">
+            <div class="score">
+                <h3 id="res1"></h3>
+            </div>
+        </div>
+        <div class="player">
+            <img src="img5.png" width="75px" height="auto" >
+            <div class="score">
+                <h3 id="res2"></h3>
+            </div>
+        </div><br>
+        <div class="output">
+            <p id="win"></p>
+        </div>
+        <br><button onClick="window.location.reload();">NEW GAME</button>
+   
+        <script>
+            var result1;  //Player one's result
+            var result2;  //Player two's result
+            var random1;  //Random number for first dice
+            var random2;  //Random number for second dice
+            var player1 = 0;  //Player one's marks
+            var player2 = 0;  //Player two's marks
+            var rollNo = 1;   //Roll count
+
+            function roll(){
+                random1 = Math.floor(Math.random() * 6) + 1;
+                random2 = Math.floor(Math.random() * 6) + 1;
+                result1 = document.getElementById("res1");
+                result2 = document.getElementById("res2");
+               
+
+                if(random1==1){
+                    document.getElementById("dice1").src = "dice_1.png";
+                }
+                if(random1==2){
+                    document.getElementById("dice1").src = "dice_2.png";
+                }
+                if(random1==3){
+                    document.getElementById("dice1").src = "dice_3.png";
+                }
+                if(random1==4){
+                    document.getElementById("dice1").src = "dice_4.png";
+                }
+                if(random1==5){
+                    document.getElementById("dice1").src = "dice_5.png";
+                }
+                if(random1==6){
+                    document.getElementById("dice1").src = "dice_6.png";
+                }
+                if(random2==1){
+                    document.getElementById("dice2").src = "dice_1.png";
+                }
+                if(random2==2){
+                    document.getElementById("dice2").src = "dice_2.png";
+                }
+                if(random2==3){
+                    document.getElementById("dice2").src = "dice_3.png";
+                }
+                if(random2==4){
+                    document.getElementById("dice2").src = "dice_4.png";
+                }
+                if(random2==5){
+                    document.getElementById("dice2").src = "dice_5.png";
+                }
+                if(random2==6){
+                    document.getElementById("dice2").src = "dice_6.png";
+                }
+
+                if(rollNo%2 === 1){
+                    if(random1 == 1 && random2 == 1){
+                        player1 = 0;
+                        result1.innerHTML = "P1 : " + player1;
+                        rollNo++;
+                    }else if(random1 != 1 && random2 != 1 && random1==random2){
+                        player1 = player1 + random1 + random2;
+                        result1.innerHTML = "P1 : " + player1;
+                    }
+                    else{
+                        player1 = player1 + random1 + random2;
+                        result1.innerHTML = "P1 : " + player1;
+                        rollNo++;
+                    }
+                    document.getElementById("win").innerHTML = "PLAYER 1 ROLLED";
+                    
+                }
+                else if(rollNo%2 === 0){
+                    if(random1 == 1 && random2 == 1){
+                        player2 = 0;
+                        result2.innerHTML = "P2 : " + player2;
+                        rollNo++;
+                    }else if(random1 != 1 && random2 != 1 && random1==random2){
+                        player2 = player2 + random1 + random2;
+                        result2.innerHTML = "P2 : " + player2;
+                    }
+                    else{
+                        player2 = player2 + random1 + random2;
+                        result2.innerHTML = "P2 : " + player2;
+                        rollNo++;
+                    }
+                    document.getElementById("win").innerHTML = "PLAYER 2 ROLLED";
+                }
+
+                if(player1 >= 100){
+                    document.getElementById("win").innerHTML = "PLAYER 1 WINS";
+                    document.getElementById("roll").disabled = true;
+                }
+                else if(player2 >= 100){
+                    document.getElementById("win").innerHTML = "PLAYER 2 WINS";
+                    document.getElementById("roll").disabled = true;
+                }
+            }
+        </script>
+    </body>
+</html>
